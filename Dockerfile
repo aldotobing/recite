@@ -1,10 +1,6 @@
 # Use a slim base image
 FROM node:slim
 
-# Set environment variables
-ENV MONGO_URI=mongodb+srv://aldotobing:10next20@cluster0.9v0p6xe.mongodb.net/quotes_db
-ENV PORT=3003
-
 # Set the working directory
 WORKDIR /usr/src/app
 
@@ -16,6 +12,9 @@ RUN npm install --production
 
 # Copy the rest of the application code
 COPY . .
+
+# Copy the .env file
+COPY .env .env
 
 # Expose the port
 EXPOSE 3003
