@@ -21,5 +21,5 @@ const quoteSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const QuoteModel = mongoose.model("quote", quoteSchema);
+const QuoteModel = mongoose.model("quotes", quoteSchema);
 module.exports = QuoteModel;

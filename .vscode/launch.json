@@ -1,0 +1,10 @@
+{
+  "configurations": [
+    {
+      "type": "msedge",
+      "name": "http://localhost:3003/random/quote-from-db",
+      "request": "launch",
+      "url": "http://localhost:3003/random/quote-from-db"
+    }
+  ]
+}

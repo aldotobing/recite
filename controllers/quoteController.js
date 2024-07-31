@@ -1,72 +1,94 @@
-// const quotes = require("../content/quotes.json");
 const path = require("path");
 const fs = require("fs");
 const QuoteModel = require("../models/QuoteModel");
 
-// const quotesFilePath = path.resolve("./") + "\\content\\quotes.json";
 const quotesFilePath = path.resolve("./") + "/content/quotes.json";
 
 const getQuotes = (req, res) => {
-  const quotesFileContent = fs.readFileSync(quotesFilePath);
-  const quotes = JSON.parse(quotesFileContent);
+  try {
+    const quotesFileContent = fs.readFileSync(quotesFilePath);
+    const quotes = JSON.parse(quotesFileContent);
 
-  res.send({
-    total: quotes.length,
-    quotes,
-  });
+    res.send({
+      total: quotes.length,
+      quotes,
+    });
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Failed to fetch quotes",
+    });
+  }
 };
 
 const getQuotesFromDb = async (req, res) => {
-  const quotes = await QuoteModel.find();
-
-  res.status(200).send({
-    success: true,
-    total: quotes.length,
-    quotes,
-  });
+  try {
+    const quotes = await QuoteModel.find();
+    res.status(200).send({
+      success: true,
+      total: quotes.length,
+      quotes,
+    });
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Failed to fetch quotes from database",
+    });
+  }
 };
 
 const getRandomQuote = (req, res) => {
-  const quotesFileContent = fs.readFileSync(quotesFilePath);
-  const quotes = JSON.parse(quotesFileContent);
-  const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+  try {
+    const quotesFileContent = fs.readFileSync(quotesFilePath);
+    const quotes = JSON.parse(quotesFileContent);
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
 
-  res.status(200).send(randomQuote);
+    res.status(200).send(randomQuote);
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Failed to fetch random quote",
+    });
+  }
 };
 
 const getRandomQuoteFromDb = async (req, res) => {
-  const quotes = await QuoteModel.find();
-  const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+  try {
+    const quotes = await QuoteModel.find();
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
 
-  res.status(200).send(randomQuote);
+    res.status(200).send(randomQuote);
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Failed to fetch random quote from database",
+    });
+  }
 };
 
 const createQuote = (req, res) => {
   const { quote, book, author } = req.body;
 
   if (!quote || !book || !author) {
-    res.status(401).send("Error: All fields are required.");
-  } else {
-    const newQuote = {
-      id: new Date().getTime().toString(),
-      data: {
-        quote,
-        book,
-        author,
-        length: quote.length,
-        words: quote.split(" ").length,
-        createdAt: new Date(),
-      },
-    };
+    return res.status(400).send("Error: All fields are required.");
+  }
 
-    // read file
+  const newQuote = {
+    id: new Date().getTime().toString(),
+    data: {
+      quote,
+      book,
+      author,
+      length: quote.length,
+      words: quote.split(" ").length,
+      createdAt: new Date(),
+    },
+  };
+
+  try {
     const quotesContent = fs.readFileSync(quotesFilePath);
-
-    // alter data
     const quotes = JSON.parse(quotesContent);
     quotes.push(newQuote);
-
-    // write file
     fs.writeFileSync(quotesFilePath, JSON.stringify(quotes));
 
     res.status(201).send({
@@ -74,17 +96,22 @@ const createQuote = (req, res) => {
       message: "Quote has been added.",
       data: newQuote,
     });
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Failed to create quote",
+    });
   }
 };
 
 const createQuoteInDb = async (req, res) => {
+  const { quote, book, author } = req.body;
+
+  if (!quote || !book || !author) {
+    return res.status(400).send("Error: All fields are required.");
+  }
+
   try {
-    const { quote, book, author } = req.body;
-
-    if (!quote || !book || !author) {
-      res.status(401).send("Error: All fields are required.");
-    }
-
     const newQuote = await QuoteModel.create({
       quote,
       book,
@@ -99,43 +126,61 @@ const createQuoteInDb = async (req, res) => {
       data: newQuote,
     });
   } catch (error) {
-    console.log("Could not create a quote :(", error);
-    res.status(400).send({ success: false });
+    res.status(500).send({
+      success: false,
+      message: "Failed to create quote in database",
+    });
   }
 };
 
 const updateQuote = (req, res) => {
   const { id } = req.params;
 
-  const quotes = JSON.parse(fs.readFileSync(quotesFilePath));
-  quotes.map((quote, index) => {
-    if (quote.id === id) {
-      quote.data = { ...quote.data, ...req.body, updatedAt: new Date() };
-    }
-  });
+  try {
+    const quotes = JSON.parse(fs.readFileSync(quotesFilePath));
+    const updatedQuotes = quotes.map((quote) => {
+      if (quote.id === id) {
+        return {
+          ...quote,
+          data: { ...quote.data, ...req.body, updatedAt: new Date() },
+        };
+      }
+      return quote;
+    });
 
-  fs.writeFileSync(quotesFilePath, JSON.stringify(quotes));
+    fs.writeFileSync(quotesFilePath, JSON.stringify(updatedQuotes));
 
-  res.send({
-    status: "success",
-    message: `Quote with ${id} has been successfully updated`,
-  });
+    res.send({
+      status: "success",
+      message: `Quote with ${id} has been successfully updated`,
+    });
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Failed to update quote",
+    });
+  }
 };
 
 const deleteQuote = (req, res) => {
   const { id } = req.params;
-  console.log(id);
 
-  const quotes = JSON.parse(fs.readFileSync(quotesFilePath));
+  try {
+    const quotes = JSON.parse(fs.readFileSync(quotesFilePath));
+    const updatedQuotes = quotes.filter((quote) => id !== quote.id);
 
-  const updatedQuotes = quotes.filter((quote) => id !== quote.id);
+    fs.writeFileSync(quotesFilePath, JSON.stringify(updatedQuotes));
 
-  fs.writeFileSync(quotesFilePath, JSON.stringify(updatedQuotes));
-
-  res.send({
-    status: "success",
-    message: `Quote with ${id} has been successfully deleted.`,
-  });
+    res.send({
+      status: "success",
+      message: `Quote with ${id} has been successfully deleted.`,
+    });
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Failed to delete quote",
+    });
+  }
 };
 
 module.exports = {
