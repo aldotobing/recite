@@ -15,123 +15,115 @@ use("quotes_db");
 // Insert a few documents into the sales collection.
 db.getCollection("quotes").insertMany([
   {
-    id: "10707935400011",
+    id: "10707935400121",
     data: {
-      quote:
-        "Kenapa ya, kalau kita udah siap-siap untuk tidur, otak malah jadi penuh ide?",
-      book: "",
-      author: "🤖",
-      length: 79,
-      words: 15,
-      createdAt: "2024-06-08T18:10:00.000Z",
+      quote: "It was a pleasure to burn.",
+      book: "Fahrenheit 451",
+      author: "Ray Bradbury",
+      length: 27,
+      words: 6,
+      createdAt: "2024-07-31T12:30:00.000+07:00",
     },
   },
   {
-    id: "10707935400012",
+    id: "10707935400122",
     data: {
-      quote:
-        "Terkadang, menunda-nunda itu bukan karena malas, tapi karena terlalu capek untuk memikirkan kemungkinan terburuk.",
-      book: "",
-      author: "🤖",
-      length: 116,
-      words: 20,
-      createdAt: "2024-06-08T18:11:00.000Z",
+      quote: "All this happened, more or less.",
+      book: "Slaughterhouse-Five",
+      author: "Kurt Vonnegut",
+      length: 35,
+      words: 6,
+      createdAt: "2024-07-31T12:31:00.000+07:00",
     },
   },
   {
-    id: "10707935400013",
+    id: "10707935400123",
     data: {
-      quote:
-        "Kamu tahu kamu sudah dewasa saat liburan yang 'menyenangkan' adalah saat tidur sepanjang hari.",
-      book: "",
-      author: "🤖",
-      length: 97,
-      words: 16,
-      createdAt: "2024-06-08T18:12:00.000Z",
+      quote: "The past is a foreign country; they do things differently there.",
+      book: "The Go-Between",
+      author: "L.P. Hartley",
+      length: 63,
+      words: 11,
+      createdAt: "2024-07-31T12:32:00.000+07:00",
     },
   },
   {
-    id: "10707935400014",
+    id: "10707935400124",
     data: {
-      quote:
-        "Mengapa ya, ketika kita menabung untuk sesuatu yang penting, uang selalu tiba-tiba habis?",
-      book: "",
-      author: "🤖",
-      length: 89,
-      words: 15,
-      createdAt: "2024-06-08T18:13:00.000Z",
+      quote: "Mrs. Dalloway said she would buy the flowers herself.",
+      book: "Mrs. Dalloway",
+      author: "Virginia Woolf",
+      length: 55,
+      words: 9,
+      createdAt: "2024-07-31T12:33:00.000+07:00",
     },
   },
   {
-    id: "10707935400015",
+    id: "10707935400125",
     data: {
-      quote:
-        "Jangan pernah meremehkan kekuatan pelukan. Terutama saat kamu merasa hancur oleh dunia.",
-      book: "",
-      author: "🤖",
-      length: 94,
-      words: 15,
-      createdAt: "2024-06-08T18:14:00.000Z",
+      quote: "It was love at first sight.",
+      book: "Catch-22",
+      author: "Joseph Heller",
+      length: 28,
+      words: 6,
+      createdAt: "2024-07-31T12:34:00.000+07:00",
     },
   },
   {
-    id: "10707935400016",
+    id: "10707935400126",
+    data: {
+      quote: "The sun shone, having no alternative, on the nothing new.",
+      book: "Murphy",
+      author: "Samuel Beckett",
+      length: 59,
+      words: 10,
+      createdAt: "2024-07-31T12:35:00.000+07:00",
+    },
+  },
+  {
+    id: "10707935400127",
+    data: {
+      quote: "If you want to make God laugh, tell him about your plans.",
+      book: "The Hummingbird's Daughter",
+      author: "Luis Alberto Urrea",
+      length: 60,
+      words: 11,
+      createdAt: "2024-07-31T12:36:00.000+07:00",
+    },
+  },
+  {
+    id: "10707935400128",
     data: {
       quote:
-        "Kadang-kadang, menjadi dewasa itu terasa seperti berpura-pura tahu apa yang kamu lakukan.",
-      book: "",
-      author: "🤖",
-      length: 89,
+        "The sky above the port was the color of television, tuned to a dead channel.",
+      book: "Neuromancer",
+      author: "William Gibson",
+      length: 81,
       words: 14,
-      createdAt: "2024-06-08T18:15:00.000Z",
+      createdAt: "2024-07-31T12:37:00.000+07:00",
     },
   },
   {
-    id: "10707935400017",
+    id: "10707935400129",
     data: {
       quote:
-        "Kenapa ya, waktu terasa lambat saat kamu menunggu, tapi berlari saat kamu terlambat?",
-      book: "",
-      author: "🤖",
-      length: 84,
-      words: 15,
-      createdAt: "2024-06-08T18:16:00.000Z",
-    },
-  },
-  {
-    id: "10707935400018",
-    data: {
-      quote:
-        "Sebenarnya, kenapa disebut 'liburan' kalau yang ada malah 'lebih ribet dari biasanya'?",
-      book: "",
-      author: "🤖",
-      length: 92,
-      words: 14,
-      createdAt: "2024-06-08T18:17:00.000Z",
-    },
-  },
-  {
-    id: "10707935400019",
-    data: {
-      quote:
-        "Kenapa ya, kadang kamu bisa melupakan sesuatu yang sangat penting, tapi bisa mengingat hal-hal sepele dari masa lalu?",
-      book: "",
-      author: "🤖",
-      length: 122,
-      words: 19,
-      createdAt: "2024-06-08T18:18:00.000Z",
-    },
-  },
-  {
-    id: "10707935400020",
-    data: {
-      quote:
-        "Terkadang, menjadi dewasa bukanlah tentang tahu segalanya, tapi belajar menerima bahwa kita masih banyak yang harus dipelajari.",
-      book: "",
-      author: "🤖",
-      length: 124,
+        "As Gregor Samsa awoke one morning from uneasy dreams he found himself transformed in his bed into a gigantic insect.",
+      book: "The Metamorphosis",
+      author: "Franz Kafka",
+      length: 129,
       words: 21,
-      createdAt: "2024-06-08T18:19:00.000Z",
+      createdAt: "2024-07-31T12:38:00.000+07:00",
+    },
+  },
+  {
+    id: "10707935400130",
+    data: {
+      quote: "All children, except one, grow up.",
+      book: "Peter Pan",
+      author: "J.M. Barrie",
+      length: 35,
+      words: 6,
+      createdAt: "2024-07-31T12:39:00.000+07:00",
     },
   },
 ]);
